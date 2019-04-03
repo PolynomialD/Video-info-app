@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/PolynomialD/Video-info-app#readme",
   "dependencies": {
-    "electron": "^4.1.3"
+    "electron": "^4.1.3",
+    "fluent-ffmpeg": "^2.1.2"
   }
 }
