@@ -3,14 +3,20 @@ const ffmpeg = require('fluent-ffmpeg')
 
 const { app, BrowserWindow, ipcMain } = electron
 
+let mainWindow
+
 app.on('ready', () => {
-  const mainWindow = new BrowserWindow({})
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+   mainWindow = new BrowserWindow({})
+   mainWindow.loadURL(`file://${__dirname}/index.html`)
 })
 
 ipcMain.on('video:submit', (event, path) => {
   ffmpeg.ffprobe(path, (err, metadata) => {
-    console.log(metadata.format.duration)
+    if (err) {
+      console.log(err)
+    } else {
+      mainWindow.webContents.send('video:metadata', metadata.format.duration)
+      }
   })
 
 })
